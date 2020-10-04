@@ -1,9 +1,6 @@
 import lombok.NonNull;
 import lombok.val;
-import tasks.CleanupExample;
-import tasks.ConstructorArgsExample;
-import tasks.EqualsAndHashCodeExample;
-import tasks.GetterSetterExample;
+import tasks.*;
 import tasks.nonNullExample.NonNullExample;
 import tasks.nonNullExample.Person;
 import tasks.nonNullExample.ToStringExample;
@@ -13,12 +10,22 @@ import java.io.IOException;
 public class Application {
 
     public static void main(String[] args) {
-        ConstructorArgsExample example = new ConstructorArgsExample(242, "A1");
-        val example2 = new ConstructorArgsExample.Example2(3);
-        val example3 = new ConstructorArgsExample.Example3();
+        DataAnnotationExample example = new DataAnnotationExample("peter", 21, "af85097cd8658a87");
+        System.out.println(example.getName());
+        System.out.println(example.getId());
+        example.setName("Peter");
+        System.out.println(example.getName());
+        example.setAge(69);
+        System.out.println(example.toString());
 
-        System.out.println(example);
-        System.out.println(example2);
-        System.out.println(example3);
+        DataAnnotationExample example1 = new DataAnnotationExample("dPeter", 69, "af85097cd8658a87");
+        System.out.println(example.equals(example1));
+        example1.setName("Peter");
+        System.out.println(example.equals(example1));
+        System.out.println(example.hashCode() == example1.hashCode());
+
+        DataAnnotationExample.InnerClass<StringBuilder> innerClass =
+                new DataAnnotationExample.InnerClass<>("WOW", new StringBuilder().append("Hello i am String Builder"));
+        System.out.println(innerClass);
     }
 }
