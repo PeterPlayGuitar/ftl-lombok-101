@@ -6,16 +6,14 @@ import tasks.nonNullExample.Person;
 import tasks.nonNullExample.ToStringExample;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Application {
 
     public static void main(String[] args) {
-        ValueExample valueExample = new ValueExample("Peter", true, "Sit");
-        valueExample.setStatus("Stand");
-        System.out.println(valueExample.getAge());
-        System.out.println(valueExample.getStatus());
-
-        ValueExample.InnerClass<Double> innerClass = ValueExample.InnerClass.of("Alex", 2.3);
-        System.out.println(innerClass);
+        BuilderExample example = BuilderExample.builder().age(2).name("Peter").occupation("One").build();
+        System.out.println(example);
+        example = BuilderExample.builder().occupations(Arrays.asList("One", "Two", "Three")).build();
+        System.out.println(example);
     }
 }
