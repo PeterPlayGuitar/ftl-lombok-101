@@ -10,22 +10,12 @@ import java.io.IOException;
 public class Application {
 
     public static void main(String[] args) {
-        DataAnnotationExample example = new DataAnnotationExample("peter", 21, "af85097cd8658a87");
-        System.out.println(example.getName());
-        System.out.println(example.getId());
-        example.setName("Peter");
-        System.out.println(example.getName());
-        example.setAge(69);
-        System.out.println(example.toString());
+        ValueExample valueExample = new ValueExample("Peter", true, "Sit");
+        valueExample.setStatus("Stand");
+        System.out.println(valueExample.getAge());
+        System.out.println(valueExample.getStatus());
 
-        DataAnnotationExample example1 = new DataAnnotationExample("dPeter", 69, "af85097cd8658a87");
-        System.out.println(example.equals(example1));
-        example1.setName("Peter");
-        System.out.println(example.equals(example1));
-        System.out.println(example.hashCode() == example1.hashCode());
-
-        DataAnnotationExample.InnerClass<StringBuilder> innerClass =
-                new DataAnnotationExample.InnerClass<>("WOW", new StringBuilder().append("Hello i am String Builder"));
+        ValueExample.InnerClass<Double> innerClass = ValueExample.InnerClass.of("Alex", 2.3);
         System.out.println(innerClass);
     }
 }
