@@ -1,4 +1,5 @@
 import lombok.NonNull;
+import lombok.Synchronized;
 import lombok.val;
 import tasks.*;
 import tasks.nonNullExample.NonNullExample;
@@ -10,10 +11,46 @@ import java.util.Arrays;
 
 public class Application {
 
-    public static void main(String[] args) {
-        BuilderExample example = BuilderExample.builder().age(2).name("Peter").occupation("One").build();
-        System.out.println(example);
-        example = BuilderExample.builder().occupations(Arrays.asList("One", "Two", "Three")).build();
-        System.out.println(example);
+    public static void main(String[] args) throws InterruptedException {
+        SynchronizedExample example = new SynchronizedExample();
+
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Thread 1: " + example.exampleMethod3());
+            }
+        });
+
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Thread 2: " + example.exampleMethod3());
+            }
+        });
+
+        thread1.start();
+        thread2.start();
+
+        thread1.join();
+        thread2.join();
+
+        thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Thread 1: " + example.exampleMethod3WithoutSync());
+            }
+        });
+
+        thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Thread 2: " + example.exampleMethod3WithoutSync());
+            }
+        });
+
+        System.out.println();
+
+        thread1.start();
+        thread2.start();
     }
 }
